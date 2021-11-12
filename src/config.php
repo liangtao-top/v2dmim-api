@@ -32,8 +32,8 @@ return [
         'open_mqtt_protocol'       => false, // 启用后会解析 MQTT 包头，worker 进程 onReceive 每次会返回一个完整的 MQTT 数据包。
         'open_http_protocol'       => true, // 启用 HTTP 协议处理，Swoole\Http\Server 会自动启用此选项。设置为 false 表示关闭 HTTP 协议处理。
         'open_websocket_protocol'  => false, // 设置使得这个端口WebSocket协议
-        'pid_file'                 => LOG_PATH . DS . 'api' . DS . 'service.pid', // 进程ID
-        'log_file'                 => LOG_PATH . DS . 'api' . DS . 'error.log', // 日志路径
+        'pid_file'                 => LOG_PATH . DS  . 'http.pid', // 进程ID
+        'log_file'                 => LOG_PATH . DS . 'http.log', // 日志路径
         'log_rotation'             => defined('SWOOLE_LOG_ROTATION_HOURLY') ? SWOOLE_LOG_ROTATION_HOURLY : 3, // 日志分割
         'open_http2_protocol'      => false,
         //        'ssl_key_file'             => ROOT_PATH . DS . 'config' . DS . 'cert' . DS . 'privkey.key',

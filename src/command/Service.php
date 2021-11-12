@@ -91,8 +91,6 @@ class Service
         $this->server->on('connect', [$this, 'onConnect']);
         // 监听Request消息事件
         $this->server->on('request', [$this, 'onRequest']);
-        // 监听WebSocket消息事件
-        $this->server->on('message', [$this, 'onMessage']);
         // 处理异步任务(此回调函数在task进程中执行)
         $this->server->on('task', [$this, 'onTask']);
         // 处理异步任务的结果(此回调函数在worker进程中执行)
