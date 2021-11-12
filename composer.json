@@ -30,7 +30,7 @@
   },
   "autoload": {
     "psr-4": {
-      "V2dmIM\\Api\\": "src"
+      "V2dmIM\\Http\\": "src"
     },
     "files": [
       "src/basic.php"
@@ -38,7 +38,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "V2dmIM\\Tests\\Gateway\\": "tests/"
+      "V2dmIM\\Tests\\Http\\": "tests/"
     }
   },
   "config": {

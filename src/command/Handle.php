@@ -11,11 +11,9 @@
 // | Version: 2.0 2020-01-19 13:36
 // +----------------------------------------------------------------------
 
-namespace V2dmIM\Api\command;
+namespace V2dmIM\Http\command;
 
 use V2dmIM\Core\utils\log\Log;
-use V2dmIM\Core\utils\sign\TokenSig;
-use V2dmIM\Core\utils\validate\Validate;
 use Swoole\Http\Request;
 use Swoole\Http\Response;
 use Swoole\Http\Server;
@@ -37,7 +35,7 @@ class Handle
         $uri        = explode('/', trim($request->server['request_uri'], '/'));
         $controller = $uri[0] ?? null;
         $controller = $controller ?: 'Index';
-        $controller = '\app\controller\\' . parse_name($controller, 1);
+        $controller = '\V2dmIM\Http\controller\\' . parse_name($controller, 1);
         $action     = parse_name(($uri[1] ?? 'index') ?: 'index', 1, false);
         // 根据 $controller, $action 映射到不同的控制器类和方法
         if (!class_exists($controller)) {

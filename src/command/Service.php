@@ -10,7 +10,7 @@
 // +----------------------------------------------------------------------
 // | Version: 2.0 2019-11-26 14:21
 // +----------------------------------------------------------------------
-namespace V2dmIM\Api\command;
+namespace V2dmIM\Http\command;
 
 use DateTime;
 use V2dmIM\Core\utils\ip\LocalIP;
@@ -44,7 +44,7 @@ class Service
             Log::info("$key  $ip");
             LocalIP::instance()->setIp($ip);
         }
-        Log::info('PHP version: ' . PHP_VERSION_ID);
+        Log::info('PHP version: ' . PHP_VERSION);
         Log::info('SWOOLE version: ' . SWOOLE_VERSION);
         /** @noinspection PhpComposerExtensionStubsInspection */
         Log::info('Current process PID:' . posix_getpid());
@@ -188,8 +188,7 @@ class Service
      */
     public function onConnect(Server $server, int $fd, int $reactorId)
     {
-        Log::info('当前服务器共有连接:' . count($server->connections));
-        Log::info("新的连接 fd: $fd reactorId: $reactorId");
+        Log::info("New connection fd: $fd reactorId: $reactorId total connections " . count($server->connections));
     }
 
     /**
@@ -203,7 +202,6 @@ class Service
     {
         // 支持跨域
         $response->header('Access-Control-Allow-Origin', '*');
-
         // OPTIONS返回
         if ($request->server['request_method'] == 'OPTIONS') {
             $response->status(http_response_code());
@@ -272,10 +270,7 @@ class Service
      */
     public function onClose(Server $server, int $fd, int $reactorId)
     {
-        if ($server->isEstablished($fd)) {
-            Handle::close($server, $fd);
-        }
-        Log::info("Close fd: $fd Reactor线程ID: $reactorId");
+        Log::info("Close fd: $fd ReactorID: $reactorId");
     }
 
     /**

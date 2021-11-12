@@ -11,9 +11,9 @@ declare(strict_types=1);
 // +----------------------------------------------------------------------
 // | Version: 2.0 2021/11/12 12:29
 // +----------------------------------------------------------------------
-namespace V2dmIM\Api;
+namespace V2dmIM\Http;
 
-use V2dmIM\Api\command\Service;
+use V2dmIM\Http\command\Service;
 
 class App
 {
