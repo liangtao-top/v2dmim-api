@@ -29,7 +29,7 @@ class Demo extends Controller
      * Action白名单
      * @var array
      */
-    protected array $allow = ['head'];
+    protected array $allow = ['head','get'];
 
     /**
      * @param \Swoole\Http\Request  $request
@@ -45,7 +45,7 @@ class Demo extends Controller
 
     /**
      * @OA\Head(
-     *     path="/app.v1.demo/head/{GroupId}",
+     *     path="/Demo/head/{GroupId}",
      *     tags={"Demo"},
      *     summary="我是Demo",
      *     @OA\Parameter(
@@ -77,7 +77,7 @@ class Demo extends Controller
      */
     public function head()
     {
-        $result = $this->service->index($this->request->getData());
+        $result = $this->service->index($this->request->get);
         if (!$result) {
             return $this->service->getError();
         }
@@ -86,7 +86,7 @@ class Demo extends Controller
 
     /**
      * @OA\Get(
-     *     path="/app.v1.demo/get/{TypeId}",
+     *     path="/Demo/get/{TypeId}",
      *     tags={"Demo"},
      *     summary="我是Demo",
      *     security={{"api_key": {}}},
@@ -142,7 +142,7 @@ class Demo extends Controller
 
     /**
      * @OA\Post(
-     *     path="/app.v1.demo/post",
+     *     path="/Demo/post",
      *     tags={"Demo"},
      *     summary="我是Demo",
      *     security={{"api_key": {}}},
@@ -168,7 +168,7 @@ class Demo extends Controller
 
     /**
      * @OA\Put(
-     *     path="/app.v1.demo/put",
+     *     path="/Demo/put",
      *     tags={"Demo"},
      *     summary="我是Demo",
      *     security={{"api_key": {}}},
@@ -195,7 +195,7 @@ class Demo extends Controller
 
     /**
      * @OA\Patch(
-     *     path="/app.v1.demo/patch",
+     *     path="/Demo/patch",
      *     tags={"Demo"},
      *     summary="我是Demo",
      *     security={{"api_key": {}}},
@@ -218,7 +218,7 @@ class Demo extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/app.v1.demo/delete",
+     *     path="/Demo/delete",
      *     tags={"Demo"},
      *     summary="我是Demo",
      *     security={{"api_key": {}}},
@@ -241,7 +241,7 @@ class Demo extends Controller
 
     /**
      * @OA\Post(
-     *     path="/app.v1.demo/fileUpload",
+     *     path="/Demo/fileUpload",
      *     tags={"File"},
      *     summary="单文件上传",
      *     security={{"api_key": {}}},
@@ -267,7 +267,7 @@ class Demo extends Controller
 
     /**
      * @OA\Post(
-     *     path="/app.v1.demo/multiFileUpload",
+     *     path="/Demo/multiFileUpload",
      *     tags={"File"},
      *     summary="多文件上传",
      *     security={{"api_key": {}}},
@@ -293,7 +293,7 @@ class Demo extends Controller
 
     /**
      * @OA\Get(
-     *     path="/app.v1.demo/deprecated",
+     *     path="/Demo/deprecated",
      *     tags={"Deprecated"},
      *     summary="我是Demo",
      *     deprecated=true,
