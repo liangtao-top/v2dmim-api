@@ -17,6 +17,9 @@ use Swoole\Http\Request;
 use Swoole\Http\Response;
 use V2dmIM\Http\utils\Auth;
 
+/**
+ * 控制器基类
+ */
 abstract class Controller
 {
 
@@ -58,6 +61,13 @@ abstract class Controller
      */
     protected string $actionName;
 
+
+    /**
+     * 控制器是否输出原始数据
+     * @var bool
+     */
+    protected bool $origin = false;
+
     /**
      * 构造函数
      * @param \Swoole\Http\Request  $request
@@ -74,6 +84,15 @@ abstract class Controller
         if (Auth::autoLogin($this->request->header) === false) {
             access_control($this->controllerName, $this->actionName, $this->deny, $this->allow);
         }
+    }
+
+    /**
+     * 控制器是否输出原始数据
+     * @return bool
+     */
+    public function isOrigin(): bool
+    {
+        return $this->origin;
     }
 
 }

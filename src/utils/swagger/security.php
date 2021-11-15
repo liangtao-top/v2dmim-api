@@ -26,7 +26,7 @@
 /**
  * @OA\Schema(
  *     schema="ApiResponse",
- *     example={"code":0,"msg":"success","data":{"status":1,"msg":"success","data":""},"state":"","timestamps":"1569738378","sign":"MUI1QUNFMjcwOTA4QzEwNkNCODUzQjc2NjNCNjJEOUQ="}
+ *     example={"code":0,"msg":"success","data":"*","time":"1636959634"}
  * )
  */
 

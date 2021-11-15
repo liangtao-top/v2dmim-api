@@ -35,12 +35,10 @@ class Handle
      */
     public static function request(Request $request, Response $response)
     {
-        // URL 路由
         $uri            = explode('/', trim($request->server['request_uri'], '/'));
         $actionName     = parse_name(($uri[1] ?? 'index') ?: 'index', 1, false);
         $controllerName = ($uri[0] ?? null) ?: 'Index';
         $controllerFull = '\V2dmIM\Http\controller\\' . parse_name($controllerName, 1);
-        // 根据 $controller, $action 映射到不同的控制器类和方法
         if (!class_exists($controllerFull)) {
             $response->end(error('Non-existent: ' . $controllerFull . '::class'));
             return;
@@ -48,7 +46,7 @@ class Handle
         try {
             $class = new $controllerFull($request, $response, $controllerName, $actionName);
         } catch (Exception $exception) {
-            $response->end(error($exception->getMessage()));
+            $response->end(error($exception->getMessage(), $exception->getCode()));
             return;
         }
         if (!method_exists($class, $actionName)) {
@@ -57,11 +55,10 @@ class Handle
         }
         try {
             $result = $class->$actionName();
-            $response->end($result);
+            $response->end($class->isOrigin() ? $result : success($result));
         } catch (Throwable $e) {
             Log::error($e->__toString());
-            $response->status(500);
-            $response->end(error('Server exception!'));
+            $response->end(error($e->getMessage(), $e->getCode()));
         }
     }
 

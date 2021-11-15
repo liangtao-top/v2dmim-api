@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 // +----------------------------------------------------------------------
 // | CodeEngine
 // +----------------------------------------------------------------------
@@ -8,37 +9,26 @@
 // +----------------------------------------------------------------------
 // | Author: TaoGe <liangtao.gz@foxmail.com>
 // +----------------------------------------------------------------------
-// | Version: 2.0 2019/7/8 13:49
+// | Version: 2.0 2021/11/15 14:50
 // +----------------------------------------------------------------------
+namespace V2dmIM\Http\utils\abs;
 
-namespace V2dmIM\Http\controller;
-
-use OpenApi;
-use V2dmIM\Http\utils\abs\Controller;
-
-/**
- * Swagger-v3 文档动态编译实现
- */
-class ApiDocs extends Controller
+abstract class Validate extends \V2dmIM\core\Validate
 {
-
     /**
-     * Action白名单
+     * 定义验证规则
+     * 格式：'字段名'	=>	['规则1','规则2'...]
+     *
      * @var array
      */
-    protected array $allow = ['index'];
+    protected array $rule = [];
 
     /**
-     * app文档
-     * @author TaoGe <liangtao.gz@foxmail.com>
-     * @date   2020/2/10 13:57
+     * 定义错误信息
+     * 格式：'字段名.规则名'	=>	'错误信息'
+     *
+     * @var array
      */
-    public function index(): string
-    {
-        $open_api = OpenApi\scan(APP_PATH . DS . 'src');
-        $this->response->header('Content-Type', 'application/json');
-        $this->origin = true;
-        return $open_api->toJson();
-    }
+    protected array $message = [];
 
 }

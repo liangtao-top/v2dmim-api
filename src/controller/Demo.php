@@ -13,6 +13,7 @@
 
 namespace V2dmIM\Http\controller;
 
+use JetBrains\PhpStorm\Pure;
 use Swoole\Http\Request;
 use Swoole\Http\Response;
 use V2dmIM\Http\utils\abs\Controller;
@@ -26,10 +27,10 @@ class Demo extends Controller
     private Service $service;
 
     /**
-     * Action白名单
+     * Action黑名单
      * @var array
      */
-    protected array $allow = ['head','get'];
+    protected array $deny = ['*'];
 
     /**
      * @param \Swoole\Http\Request  $request
@@ -77,11 +78,22 @@ class Demo extends Controller
      */
     public function head()
     {
-        $result = $this->service->index($this->request->get);
-        if (!$result) {
-            return $this->service->getError();
-        }
-        return $this->service->getResult();
+        $this->service->head($this->request->get);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/Demo/index",
+     *     tags={"Demo"},
+     *     summary="我是Demo",
+     *     @OA\Response(response=200,description="successful operation",@OA\JsonContent(ref="#/components/schemas/ApiResponse")),
+     * )
+     * @author TaoGe <liangtao.gz@foxmail.com>
+     * @date   2019-09-29 17:30
+     */
+    public function index()
+    {
+         $this->service->index($this->request->get);
     }
 
     /**
@@ -89,7 +101,6 @@ class Demo extends Controller
      *     path="/Demo/get/{TypeId}",
      *     tags={"Demo"},
      *     summary="我是Demo",
-     *     security={{"api_key": {}}},
      *     @OA\Parameter(
      *         name="GroupId",
      *         in="query",
@@ -133,11 +144,7 @@ class Demo extends Controller
      */
     public function get()
     {
-        $result = $this->service->index($this->request->get);
-        if (!$result) {
-            return $this->service->getError();
-        }
-        return $this->service->getResult();
+       return $this->service->get($this->request->get);
     }
 
     /**
@@ -159,11 +166,7 @@ class Demo extends Controller
      */
     public function post()
     {
-        $result = $this->service->index($this->request->post);
-        if (!$result) {
-            return $this->service->getError();
-        }
-        return $this->service->getResult();
+        return $this->service->get($this->request->post);
     }
 
     /**
@@ -186,11 +189,7 @@ class Demo extends Controller
      */
     public function put()
     {
-        $result = $this->service->index($this->request->post);
-        if (!$result) {
-            return $this->service->getError();
-        }
-        return $this->service->getResult();
+        return $this->service->get($this->request->post);
     }
 
     /**
@@ -209,11 +208,7 @@ class Demo extends Controller
      */
     public function patch()
     {
-        $result = $this->service->index($this->request->post);
-        if (!$result) {
-            return $this->service->getError();
-        }
-        return $this->service->getResult();
+        return $this->service->get(json_decode($this->request->getContent()));
     }
 
     /**
@@ -232,11 +227,7 @@ class Demo extends Controller
      */
     public function delete()
     {
-        $result = $this->service->index($this->request->post);
-        if (!$result) {
-            return $this->service->getError();
-        }
-        return $this->service->getResult();
+        return $this->service->get(json_decode($this->request->getContent()));
     }
 
     /**
@@ -258,11 +249,7 @@ class Demo extends Controller
      */
     public function fileUpload()
     {
-        $result = $this->service->upload($_FILES['data'] ?? []);
-        if (!$result) {
-            return $this->service->getError();
-        }
-        return $this->service->getResult();
+        return $this->service->upload(array_merge($this->request->post,$this->request->files));
     }
 
     /**
@@ -284,11 +271,7 @@ class Demo extends Controller
      */
     public function multiFileUpload()
     {
-        $result = $this->service->upload($_FILES['data']);
-        if (!$result) {
-            return $this->service->getError();
-        }
-        return $this->service->getResult();
+        return $this->service->upload(array_merge($this->request->post,$this->request->files));
     }
 
     /**
@@ -315,11 +298,7 @@ class Demo extends Controller
      */
     public function deprecated()
     {
-        $result = $this->service->index($this->request->post);
-        if (!$result) {
-            return $this->service->getError();
-        }
-        return $this->service->getResult();
+        return $this->service->get($this->request->get);
     }
 
 }

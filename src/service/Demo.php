@@ -21,19 +21,47 @@ class Demo extends Service
     /**
      * index
      * @param $param
-     * @return bool
      * @author TaoGe <liangtao.gz@foxmail.com>
-     * @date   2019-10-09 10:59
+     * @date   2021/11/15 14:29
      */
-    public function index($param): bool
+    public function index($param)
     {
-        $this->setResult($param);
-        return true;
+        throw new \RuntimeException('RuntimeException', 1000);
+
     }
 
-    public function upload(array $files): bool
+    /**
+     * head
+     * @param $param
+     * @author TaoGe <liangtao.gz@foxmail.com>
+     * @date   2021/11/15 14:32
+     */
+    public function head($param)
     {
-        $this->setResult($files);
-        return true;
+      var_dump($param);
     }
+
+    /**
+     * get
+     * @param $param
+     * @author TaoGe <liangtao.gz@foxmail.com>
+     * @date   2021/11/15 14:29
+     */
+    public function get($param)
+    {
+        return $param;
+    }
+
+    /**
+     * upload
+     * @param array $files
+     * @return array
+     * @author TaoGe <liangtao.gz@foxmail.com>
+     * @date   2021/11/15 14:30
+     */
+    public function upload(array $files): array
+    {
+        return $files;
+    }
+
 }
