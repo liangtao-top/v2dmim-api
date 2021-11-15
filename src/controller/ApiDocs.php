@@ -35,7 +35,7 @@ class ApiDocs extends Controller
      */
     public function index(): string
     {
-        $open_api = OpenApi\scan(APP_PATH . DS . 'src' . DS . 'controller');
+        $open_api = OpenApi\scan(APP_PATH . DS . 'src');
         $this->response->header('Content-Type', 'application/json');
         return $open_api->toJson();
     }

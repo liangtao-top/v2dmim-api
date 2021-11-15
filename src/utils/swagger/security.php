@@ -19,7 +19,7 @@
  *   type="apiKey",
  *   in="header",
  *   name="Authorization",
- *   description="登录授权Token",
+ *   description="登录授权",
  * )
  */
 
