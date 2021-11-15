@@ -13,12 +13,16 @@
 
 namespace V2dmIM\Http\command;
 
-use V2dmIM\Core\utils\log\Log;
+use Exception;
+use Throwable;
+use Swoole\Http\Server;
 use Swoole\Http\Request;
 use Swoole\Http\Response;
-use Swoole\Http\Server;
-use Throwable;
+use V2dmIM\Core\utils\log\Log;
 
+/**
+ * 事件处理
+ */
 class Handle
 {
 
@@ -29,26 +33,30 @@ class Handle
      * @author TaoGe <liangtao.gz@foxmail.com>
      * @date   2020/10/31 13:36
      */
-    public static function request(Request &$request, Response &$response)
+    public static function request(Request $request, Response $response)
     {
         // URL 路由
-        $uri        = explode('/', trim($request->server['request_uri'], '/'));
-        $controller = $uri[0] ?? null;
-        $controller = $controller ?: 'Index';
-        $controller = '\V2dmIM\Http\controller\\' . parse_name($controller, 1);
-        $action     = parse_name(($uri[1] ?? 'index') ?: 'index', 1, false);
+        $uri            = explode('/', trim($request->server['request_uri'], '/'));
+        $actionName     = parse_name(($uri[1] ?? 'index') ?: 'index', 1, false);
+        $controllerName = ($uri[0] ?? null) ?: 'Index';
+        $controllerFull = '\V2dmIM\Http\controller\\' . parse_name($controllerName, 1);
         // 根据 $controller, $action 映射到不同的控制器类和方法
-        if (!class_exists($controller)) {
-            $response->end(error('Non-existent: ' . $controller . '::class'));
-            return;
-        }
-        $class = new $controller;
-        if (!method_exists($class, $action)) {
-            $response->end(error('Non-existent: ' . $controller . '::' . $action));
+        if (!class_exists($controllerFull)) {
+            $response->end(error('Non-existent: ' . $controllerFull . '::class'));
             return;
         }
         try {
-            $result = $class->$action($request, $response);
+            $class = new $controllerFull($request, $response, $controllerName, $actionName);
+        } catch (Exception $exception) {
+            $response->end(error($exception->getMessage()));
+            return;
+        }
+        if (!method_exists($class, $actionName)) {
+            $response->end(error('Non-existent: ' . $controllerFull . '::' . $actionName));
+            return;
+        }
+        try {
+            $result = $class->$actionName();
             $response->end($result);
         } catch (Throwable $e) {
             Log::error($e->__toString());

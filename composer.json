@@ -22,7 +22,8 @@
     "ext-json": "*",
     "ext-zlib": "*",
     "ext-mbstring": "*",
-    "liangtao/v2dmim-core": "@dev"
+    "liangtao/v2dmim-core": "@dev",
+    "zircote/swagger-php": "^3.3"
   },
   "require-dev": {
     "swoole/ide-helper": "@dev",
