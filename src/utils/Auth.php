@@ -26,10 +26,10 @@ class Auth
     public static function autoLogin(array $header): array|false
     {
         $auth = null;
-        if (isset($request->header['Authorization'])) {
-            $auth = $request->header['Authorization'];
+        if (isset($header['Authorization'])) {
+            $auth = $header['Authorization'];
         } elseif (isset($request->header['authorization'])) {
-            $auth = $request->header['authorization'];
+            $auth = $header['authorization'];
         }
         if (is_null($auth) || empty($http_auth)) {
             return false;
