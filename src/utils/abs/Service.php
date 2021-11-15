@@ -26,9 +26,9 @@ class Service
 
     /**
      * 返回结果
-     * @var mixed
+     * @var array
      */
-    private mixed $result = '';
+    private array $result;
 
     /**
      * @return \V2dmIM\Core\struct\Error
@@ -47,17 +47,17 @@ class Service
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function getResult(): mixed
+    public function getResult(): array
     {
         return $this->result;
     }
 
     /**
-     * @param mixed $result
+     * @param array $result
      */
-    public function setResult(mixed $result): void
+    public function setResult(array $result): void
     {
         $this->result = $result;
     }
