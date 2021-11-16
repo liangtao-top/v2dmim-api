@@ -69,13 +69,13 @@ abstract class Controller
     protected bool $origin = false;
 
     /**
-     * 构造函数
+     * 依赖注入
      * @param \Swoole\Http\Request  $request
      * @param \Swoole\Http\Response $response
      * @param string                $controllerName
      * @param string                $actionName
      */
-    public function __construct(Request $request, Response $response, string $controllerName, string $actionName)
+    public function dependencyInjection(Request $request, Response $response, string $controllerName, string $actionName)
     {
         $this->request        = $request;
         $this->response       = $response;

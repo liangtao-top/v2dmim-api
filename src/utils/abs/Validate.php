@@ -13,7 +13,7 @@ declare(strict_types=1);
 // +----------------------------------------------------------------------
 namespace V2dmIM\Http\utils\abs;
 
-abstract class Validate extends \V2dmIM\core\Validate
+abstract class Validate extends \V2dmIM\Core\Validate
 {
     /**
      * 定义验证规则

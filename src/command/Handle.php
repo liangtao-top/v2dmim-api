@@ -44,21 +44,18 @@ class Handle
             return;
         }
         try {
-            $class = new $controllerFull($request, $response, $controllerName, $actionName);
-        } catch (Exception $exception) {
-            $response->end(error($exception->getMessage(), $exception->getCode()));
-            return;
-        }
-        if (!method_exists($class, $actionName)) {
-            $response->end(error('Non-existent: ' . $controllerFull . '::' . $actionName));
-            return;
-        }
-        try {
+            $class = new $controllerFull();
+            $class->dependencyInjection($request, $response, $controllerName, $actionName);
+            if (!method_exists($class, $actionName)) {
+                $response->end(error('Non-existent: ' . $controllerFull . '::' . $actionName));
+                return;
+            }
             $result = $class->$actionName();
             $response->end($class->isOrigin() ? $result : success($result));
-        } catch (Throwable $e) {
-            Log::error($e->__toString());
-            $response->end(error($e->getMessage(), $e->getCode()));
+        } catch (Exception $exception) {
+            Log::error($exception->__toString());
+            $response->end(error($exception->getMessage(), $exception->getCode()));
+            return;
         }
     }
 

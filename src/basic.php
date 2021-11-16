@@ -31,4 +31,3 @@ Config::instance(__DIR__ . DS . 'config.php');
 
 // 载入助手函数
 require 'helper.php';
-

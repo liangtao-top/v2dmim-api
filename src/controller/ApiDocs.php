@@ -13,7 +13,7 @@
 
 namespace V2dmIM\Http\controller;
 
-use OpenApi;
+use OpenApi\Generator;
 use V2dmIM\Http\utils\abs\Controller;
 
 /**
@@ -35,7 +35,7 @@ class ApiDocs extends Controller
      */
     public function index(): string
     {
-        $open_api = OpenApi\scan(APP_PATH . DS . 'src');
+        $open_api = Generator::scan([APP_PATH . DS . 'src']);
         $this->response->header('Content-Type', 'application/json');
         $this->origin = true;
         return $open_api->toJson();

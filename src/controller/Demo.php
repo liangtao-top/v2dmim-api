@@ -13,9 +13,6 @@
 
 namespace V2dmIM\Http\controller;
 
-use JetBrains\PhpStorm\Pure;
-use Swoole\Http\Request;
-use Swoole\Http\Response;
 use V2dmIM\Http\utils\abs\Controller;
 use V2dmIM\Http\service\Demo as Service;
 
@@ -24,6 +21,7 @@ use V2dmIM\Http\service\Demo as Service;
  */
 class Demo extends Controller
 {
+
     private Service $service;
 
     /**
@@ -33,14 +31,10 @@ class Demo extends Controller
     protected array $deny = ['*'];
 
     /**
-     * @param \Swoole\Http\Request  $request
-     * @param \Swoole\Http\Response $response
-     * @param string                $controllerName
-     * @param string                $actionName
+     * 构造函数
      */
-    public function __construct(Request $request, Response $response, string $controllerName, string $actionName)
+    public function __construct()
     {
-        parent::__construct($request, $response, $controllerName, $actionName);
         $this->service = new Service;
     }
 
@@ -93,7 +87,7 @@ class Demo extends Controller
      */
     public function index()
     {
-         $this->service->index($this->request->get);
+        $this->service->index($this->request->get);
     }
 
     /**
@@ -144,7 +138,7 @@ class Demo extends Controller
      */
     public function get()
     {
-       return $this->service->get($this->request->get);
+        return $this->service->get($this->request->get);
     }
 
     /**
@@ -233,7 +227,7 @@ class Demo extends Controller
     /**
      * @OA\Post(
      *     path="/Demo/fileUpload",
-     *     tags={"File"},
+     *     tags={"Demo"},
      *     summary="单文件上传",
      *     security={{"api_key": {}}},
      *     @OA\RequestBody(
@@ -249,13 +243,13 @@ class Demo extends Controller
      */
     public function fileUpload()
     {
-        return $this->service->upload(array_merge($this->request->post,$this->request->files));
+        return $this->service->upload(array_merge($this->request->post, $this->request->files));
     }
 
     /**
      * @OA\Post(
      *     path="/Demo/multiFileUpload",
-     *     tags={"File"},
+     *     tags={"Demo"},
      *     summary="多文件上传",
      *     security={{"api_key": {}}},
      *     @OA\RequestBody(
@@ -271,13 +265,13 @@ class Demo extends Controller
      */
     public function multiFileUpload()
     {
-        return $this->service->upload(array_merge($this->request->post,$this->request->files));
+        return $this->service->upload(array_merge($this->request->post, $this->request->files));
     }
 
     /**
      * @OA\Get(
      *     path="/Demo/deprecated",
-     *     tags={"Deprecated"},
+     *     tags={"Demo"},
      *     summary="我是Demo",
      *     deprecated=true,
      *     security={{"api_key": {}}},

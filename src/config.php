@@ -41,4 +41,12 @@ return [
         //        'ssl_key_file'             => ROOT_PATH . DS . 'config' . DS . 'cert' . DS . 'privkey.key',
         //        'ssl_cert_file'            => ROOT_PATH . DS . 'config' . DS . 'cert' . DS . 'fullchain.pem',
     ],
+    'mysql'=>[
+        'hostname'=>'127.0.0.1',
+        'hostport'=>3306,
+        'database'=>'V2dmIM',
+        'charset'=>'utf8mb4',
+        'username'=>'root',
+        'password'=>'XReVA1tSyoTIyWP7',
+    ],
 ];
