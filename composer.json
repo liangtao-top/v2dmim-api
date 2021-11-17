@@ -23,7 +23,8 @@
     "ext-zlib": "*",
     "ext-mbstring": "*",
     "liangtao/v2dmim-core": "@dev",
-    "zircote/swagger-php": "^3.3"
+    "zircote/swagger-php": "^3.3",
+    "liangtao/kafka-php": "1.0.1"
   },
   "require-dev": {
     "swoole/ide-helper": "@dev",

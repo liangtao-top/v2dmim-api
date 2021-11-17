@@ -13,6 +13,7 @@
 namespace V2dmIM\Http\command;
 
 use DateTime;
+use V2dmIM\Core\pool\PDOPool;
 use V2dmIM\Core\utils\ip\LocalIP;
 use V2dmIM\Core\utils\log\Log;
 use Swoole\Server\Task;
@@ -54,6 +55,7 @@ class Service
         Log::info('Maximum number of connections:' . $swoole_config['max_connection']);
         Log::info('Process daemon:' . ($swoole_config['daemonize'] ? 'true' : 'false'));
         $this->server = new Server($this->config['host'], $this->config['port']);
+        /** @noinspection HttpUrlsUsage */
         Log::info("Listen client urls http://{$this->config['host']}:{$this->config['port']}");
         $this->server->set($swoole_config);
     }
@@ -159,6 +161,7 @@ class Service
         }
         swoole_set_process_name($process_name);
         Log::info($process_name . ' started.');
+        PDOPool::instance();        // 初始化PDO连接池
     }
 
     /**
@@ -265,8 +268,9 @@ class Service
      * @param Server $server
      * @param int    $fd
      * @param int    $reactorId
-     * @author TaoGe <liangtao.gz@foxmail.com>
-     * @date   2020/10/30 10:06
+     * @author       TaoGe <liangtao.gz@foxmail.com>
+     * @date         2020/10/30 10:06
+     * @noinspection PhpUnusedParameterInspection
      */
     public function onClose(Server $server, int $fd, int $reactorId)
     {

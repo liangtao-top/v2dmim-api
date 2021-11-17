@@ -41,12 +41,20 @@ return [
         //        'ssl_key_file'             => ROOT_PATH . DS . 'config' . DS . 'cert' . DS . 'privkey.key',
         //        'ssl_cert_file'            => ROOT_PATH . DS . 'config' . DS . 'cert' . DS . 'fullchain.pem',
     ],
-    'mysql'=>[
-        'hostname'=>'127.0.0.1',
-        'hostport'=>3306,
-        'database'=>'V2dmIM',
-        'charset'=>'utf8mb4',
-        'username'=>'root',
-        'password'=>'XReVA1tSyoTIyWP7',
+    'kafka'  => [
+        'metadata_refresh_interval_ms' => 10000,
+        'metadata_broker_list'         => '192.168.0.255:9092',
+        'broker_version'               => '1.0.0',
+        'required_ack'                 => 1,
+        'is_asyn'                      => false,
+        'produce_interval'             => 500,
+    ],
+    'mysql'  => [
+        'hostname' => '192.168.0.255',
+        'hostport' => 3306,
+        'database' => 'V2dmIM',
+        'charset'  => 'utf8mb4',
+        'username' => 'root',
+        'password' => 'XReVA1tSyoTIyWP7',
     ],
 ];
