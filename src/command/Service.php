@@ -13,7 +13,6 @@
 namespace V2dmIM\Http\command;
 
 use DateTime;
-use V2dmIM\Core\pool\PDOPool;
 use V2dmIM\Core\utils\ip\LocalIP;
 use V2dmIM\Core\utils\log\Log;
 use Swoole\Server\Task;
@@ -161,7 +160,6 @@ class Service
         }
         swoole_set_process_name($process_name);
         Log::info($process_name . ' started.');
-        PDOPool::instance();        // 初始化PDO连接池
     }
 
     /**

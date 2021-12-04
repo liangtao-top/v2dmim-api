@@ -13,6 +13,7 @@ declare(strict_types=1);
 // +----------------------------------------------------------------------
 namespace V2dmIM\Http\controller;
 
+use JetBrains\PhpStorm\Pure;
 use RuntimeException;
 use V2dmIM\Http\utils\abs\Controller;
 use V2dmIM\Http\service\Auth as Service;
@@ -28,20 +29,20 @@ class Auth extends Controller
 
     /**
      * 服务类
-     * @var \V2dmIM\Http\service\Auth
+     * @var Service
      */
     private Service $service;
 
     /**
      * 验证类
-     * @var \V2dmIM\Http\validate\Auth
+     * @var Validate
      */
     private Validate $validate;
 
     /**
      * 构造函数
      */
-    public function __construct()
+    #[Pure] public function __construct()
     {
         $this->service  = new Service;
         $this->validate = new Validate;
@@ -63,7 +64,7 @@ class Auth extends Controller
      * @author TaoGe <liangtao.gz@foxmail.com>
      * @date   2019-09-29 17:30
      */
-    public function userRegister()
+    public function userRegister(): array
     {
         $result = $this->validate->scene(__FUNCTION__)->check($this->request->post);
         if (false === $result) {
