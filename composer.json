@@ -49,7 +49,7 @@
   "repositories": [
     {
       "type": "path",
-      "url": "../../com/php/core"
+      "url": "../../lib/php/core"
     },
     {
       "type": "composer",
